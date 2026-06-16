@@ -58,7 +58,12 @@ jobs:
       # Commit and push reports
       - name: Commit and push reports
         run: |
-          if git add "**/homework_report.csv" && ! git diff --cached --quiet; then
+          echo "📍 Current dir: $(pwd)"
+          echo "📍 Files in cwd:"
+          find . -name "homework_report.csv" -type f
+          echo "---"
+          git add . && git status
+          if ! git diff --cached --quiet; then
             git commit -m "📊 Update attendance report - $(date +'%Y-%m-%d')"
             git push origin master
             echo "✅ Reports pushed to GitHub"
