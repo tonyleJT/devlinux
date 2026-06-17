@@ -22,6 +22,13 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           path: student-code
 
+      # 1b. Checkout master branch (để đọc class.json mới nhất từ teacher)
+      - name: Checkout base repo at master
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          path: base-code
+
       # 2. Setup SSH để clone private repo
       - name: Setup SSH Deploy Key
         uses: webfactory/ssh-agent@v0.9.0
@@ -52,4 +59,5 @@ jobs:
           PR_AUTHOR:         ${{ github.event.pull_request.user.login }}
           PR_TITLE:          ${{ github.event.pull_request.title }}
           STUDENT_CODE_PATH: student-code
+          BASE_CODE_PATH:    base-code
         run: python reviewer-core/reviewer/review_pr.py
