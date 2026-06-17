@@ -47,6 +47,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_REPO: ${{ github.repository }}
+          BASE_CODE_PATH: .
         run: python reviewer-core/attendance-report/generate_attendance_report.py
 
       # Configure git
